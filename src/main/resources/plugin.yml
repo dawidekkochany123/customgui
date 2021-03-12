@@ -3,3 +3,6 @@ version: ${project.version}
 main: dawidos506.Main
 api-version: 1.16
 authors: [ dawidos506 ]
+
+commands:
+  gui:

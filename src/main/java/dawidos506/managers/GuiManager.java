@@ -19,13 +19,8 @@ public class GuiManager {
     private Main pl = Main.getPlugin(Main.class);
     private FileManager fileManager;
 
-    public List<Gui> guis = new ArrayList<>();
-
-    public GuiManager() {
-        fileManager = new FileManager();
-    }
-
     public void load() {
+        fileManager = new FileManager();
         if(fileManager.getGuisFolder().listFiles() != null) {
             for(File f : fileManager.getGuisFolder().listFiles()) {
                 YamlConfiguration yml = YamlConfiguration.loadConfiguration(f);
@@ -35,12 +30,21 @@ public class GuiManager {
                     }
                 }
                 Gui gui = new Gui(yml.getString("name"), yml.getString("displayname"), yml.getInt("size"), yml.getString("permission"), content);
-                guis.add(gui);
+                pl.guis.add(gui);
+                pl.names.add(yml.getString("name"));
             }
         }
         else {
             pl.getLogger().info(ChatUtil.fixColor("&4UWAGA: Brak plikow gui w folderze /guis/"));
         }
+    }
+
+    public Gui getGuiByName(String name) {
+        for(Gui g : pl.guis) {
+            if(g.getName().equalsIgnoreCase(name))
+                return g;
+        }
+        return null;
     }
 
 }
