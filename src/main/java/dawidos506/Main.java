@@ -1,6 +1,7 @@
 package dawidos506;
 
 import dawidos506.commands.CommandGui;
+import dawidos506.listeners.InventoryClickListener;
 import dawidos506.managers.FileManager;
 import dawidos506.managers.GuiManager;
 import dawidos506.managers.InventoryManager;
@@ -37,6 +38,8 @@ public final class Main extends JavaPlugin {
         inventoryManager.setup();
 
         getCommand("gui").setExecutor(new CommandGui());
+
+        getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
 
         log.info("Wczytano pomyslnie!");
     }
