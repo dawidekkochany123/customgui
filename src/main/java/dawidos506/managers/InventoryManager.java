@@ -29,5 +29,13 @@ public class InventoryManager {
     public Inventory getInventoryByGui(Gui g) {
         return pl.inventories.get(g);
     }
+    public Gui getGuiByInventory(Inventory inv) {
+        for(Gui g : pl.inventories.keySet()) {
+            if(pl.inventories.get(g).equals(inv)) {
+                return g;
+            }
+        }
+        return null;
+    }
 
 }
