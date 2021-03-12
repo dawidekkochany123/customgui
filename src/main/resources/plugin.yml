@@ -1,4 +1,4 @@
-name: Custom Gui
+name: CustomGui
 version: ${project.version}
 main: dawidos506.Main
 api-version: 1.16
