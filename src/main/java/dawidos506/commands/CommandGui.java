@@ -3,6 +3,7 @@ package dawidos506.commands;
 import dawidos506.Main;
 import dawidos506.managers.GuiManager;
 import dawidos506.managers.InventoryManager;
+import dawidos506.objects.Gui;
 import dawidos506.utils.ChatUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -32,8 +33,14 @@ public class CommandGui implements CommandExecutor {
                     }
                     else {
                         if(pl.names.contains(args[0])) {
-                            p.openInventory(inventoryManager.getInventoryByGui(guiManager.getGuiByName(args[0])));
-                            p.sendMessage(ChatUtil.fixColor("&aPomyslnie otworzono GUI!"));
+                            Gui gui = guiManager.getGuiByName(args[0]);
+                            if(gui.getPermission()==null || p.hasPermission(gui.getPermission())) {
+                                p.openInventory(inventoryManager.getInventoryByGui(gui));
+                                p.sendMessage(ChatUtil.fixColor("&aPomyslnie otworzono GUI!"));
+                            }
+                            else{
+                                p.sendMessage(ChatUtil.fixColor("&4Nie masz uprawnien do tej komendy!"));
+                            }
                         }
                         else {
                             p.sendMessage(ChatUtil.fixColor("&4Nie ma takiegu GUI!"));
