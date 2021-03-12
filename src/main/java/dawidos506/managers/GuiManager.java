@@ -30,8 +30,13 @@ public class GuiManager {
                     }
                 }
                 Gui gui = new Gui(yml.getString("name"), yml.getString("displayname"), yml.getInt("size"), yml.getString("permission"), content);
-                pl.guis.add(gui);
-                pl.names.add(yml.getString("name"));
+                if(gui.getSize()%9 != 0) {
+                    System.out.println("BLAD: Liczba slotow w " + gui.getName() + " nie jest podzielna przez 9!");
+                }
+                else {
+                    pl.guis.add(gui);
+                    pl.names.add(yml.getString("name"));
+                }
             }
         }
         else {
