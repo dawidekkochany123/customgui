@@ -21,11 +21,8 @@ public class GuiManager {
 
     public List<Gui> guis = new ArrayList<>();
 
-    public GuiManager() {
-        fileManager = new FileManager();
-    }
-
     public void load() {
+        fileManager = new FileManager();
         if(fileManager.getGuisFolder().listFiles() != null) {
             for(File f : fileManager.getGuisFolder().listFiles()) {
                 YamlConfiguration yml = YamlConfiguration.loadConfiguration(f);
@@ -41,6 +38,10 @@ public class GuiManager {
         else {
             pl.getLogger().info(ChatUtil.fixColor("&4UWAGA: Brak plikow gui w folderze /guis/"));
         }
+    }
+
+    public List<Gui> getGuis() {
+        return guis;
     }
 
 }
