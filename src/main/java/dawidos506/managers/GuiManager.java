@@ -1,0 +1,46 @@
+package dawidos506.managers;
+
+import dawidos506.Main;
+import dawidos506.objects.Gui;
+import dawidos506.objects.Item;
+import dawidos506.utils.ChatUtil;
+import dawidos506.utils.ItemBuilder;
+import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.ItemStack;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+public class GuiManager {
+
+    private Main pl = Main.getPlugin(Main.class);
+    private FileManager fileManager;
+
+    public List<Gui> guis = new ArrayList<>();
+
+    public GuiManager() {
+        fileManager = new FileManager();
+    }
+
+    public void load() {
+        if(fileManager.getGuisFolder().listFiles() != null) {
+            for(File f : fileManager.getGuisFolder().listFiles()) {
+                YamlConfiguration yml = YamlConfiguration.loadConfiguration(f);
+                List<Item> content = new ArrayList<>(); {
+                    for(String s : yml.getConfigurationSection("content").getKeys(false)) {
+                        content.add(new Item(Material.getMaterial(yml.getString("content."+s+".item")), yml.getString("content."+s+".displayname"), yml.getInt("content."+s+".slot"), yml.getInt("content."+s+".count"), ChatUtil.fixColor(yml.getStringList("content."+s+".lore")), yml.getString("content."+s+".command")));
+                    }
+                }
+                Gui gui = new Gui(yml.getString("name"), yml.getString("displayname"), yml.getInt("size"), yml.getString("permission"), content);
+                guis.add(gui);
+            }
+        }
+        else {
+            pl.getLogger().info(ChatUtil.fixColor("&4UWAGA: Brak plikow gui w folderze /guis/"));
+        }
+    }
+
+}

@@ -1,0 +1,22 @@
+name: 'examplegui'
+displayname: '&aExample Gui'
+size: 9
+permission: null
+content:
+  miecz:
+    item: 'MINECRAFT:DIAMOND_SWORD'
+    displayname: '&4Walka'
+    slot: 1
+    count: 1
+    lore:
+      - '&8Super miecz'
+      - '&8Do walki'
+    command: 'give @p diamond_sword 1'
+  wyjscie:
+    item: 'MINECRAFT:BARRIER'
+    displayname: '&4Wyjscie'
+    slot: 9
+    count: 1
+    lore:
+      - '&8Kliknij, aby wyjsc z menu'
+    command: 'gui exit'
