@@ -19,8 +19,6 @@ public class GuiManager {
     private Main pl = Main.getPlugin(Main.class);
     private FileManager fileManager;
 
-    public List<Gui> guis = new ArrayList<>();
-
     public void load() {
         fileManager = new FileManager();
         if(fileManager.getGuisFolder().listFiles() != null) {
@@ -32,7 +30,8 @@ public class GuiManager {
                     }
                 }
                 Gui gui = new Gui(yml.getString("name"), yml.getString("displayname"), yml.getInt("size"), yml.getString("permission"), content);
-                guis.add(gui);
+                pl.guis.add(gui);
+                pl.names.add(yml.getString("name"));
             }
         }
         else {
@@ -40,8 +39,12 @@ public class GuiManager {
         }
     }
 
-    public List<Gui> getGuis() {
-        return guis;
+    public Gui getGuiByName(String name) {
+        for(Gui g : pl.guis) {
+            if(g.getName().equalsIgnoreCase(name))
+                return g;
+        }
+        return null;
     }
 
 }

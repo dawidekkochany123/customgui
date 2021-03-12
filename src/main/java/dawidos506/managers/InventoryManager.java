@@ -9,20 +9,25 @@ import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class InventoryManager {
 
-    public List<Inventory> inventories = new ArrayList<>();
+    private Main pl = Main.getPlugin(Main.class);
 
-    public void setup(List<Gui> guis) {
-        for(Gui g : guis) {
+    public void setup() {
+        for(Gui g : pl.guis) {
             Inventory inv = Bukkit.createInventory(null, g.getSize(), ChatUtil.fixColor(g.getDisplayName()));
             for(Item i : g.getContent()) {
                 inv.setItem(i.getSlot()-1, new ItemBuilder(i.getMaterial(), i.getCount()).setTitle(ChatUtil.fixColor(i.getDisplayName())).addLores(ChatUtil.fixColor(i.getLore())).build());
             }
-            inventories.add(inv);
+            pl.inventories.put(g, inv);
         }
+    }
+
+    public Inventory getInventoryByGui(Gui g) {
+        return pl.inventories.get(g);
     }
 
 }
